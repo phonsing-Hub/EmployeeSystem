@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.br{
+    border: 1px solid black;
+}
+
+.auth{
+    min-height: calc(100vh - 92px);
+}
