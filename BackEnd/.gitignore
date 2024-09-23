@@ -1,0 +1,4 @@
+.env
+go.sum
+src/utils/private.key
+src/utils/public.key
