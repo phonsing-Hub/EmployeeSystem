@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../UserProvider";
 import {
   Dropdown,
   DropdownTrigger,
@@ -9,26 +11,28 @@ import {
 import { ThemeSwitcher } from "../theme/ThemeSwitcher";
 
 export default function DropdownUser() {
+  const navigate = useNavigate();
+  const user = useUser();
   return (
     <Dropdown
       showArrow
       radius="sm"
       classNames={{
-        base: "before:bg-default-200", // change arrow background
+        base: "before:bg-default-200",
         content: "p-0 border-small border-divider bg-background",
       }}
     >
-      <DropdownTrigger className=" cursor-pointer">
+      <DropdownTrigger className="cursor-pointer">
         <User
-          name="Junior Garcia"
-          description="@jrgarciadev"
+          name={user?.firstname + " " + user?.lastname}
+          description={user?.email}
           classNames={{
-            name: "text-default-600",
+            name: "text-default-600 font-bold",
             description: "text-default-500",
           }}
           avatarProps={{
             size: "sm",
-            src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+            //src: "https://avatars.githubusercontent.com/u/30373425?v=4",
             isBordered: true,
             color: "secondary",
           }}
@@ -51,47 +55,50 @@ export default function DropdownUser() {
             "data-[focus-visible=true]:ring-default-500",
           ],
         }}
+        onAction={(key) => navigate(key.toString())}
       >
         <DropdownSection aria-label="Profile & Actions" showDivider>
           <DropdownItem
             isReadOnly
             key="profile"
-            //className="h-14 gap-2"
             className="opacity-100"
+            textValue="Junior Garcia profile"
           >
             <User
-              name="Junior Garcia"
-              description="@jrgarciadev"
+               name={user?.firstname + " " + user?.firstname}
+               description={user?.email}
               classNames={{
-                name: "text-default-600",
+                name: "text-default-600 font-bold",
                 description: "text-default-500",
               }}
               avatarProps={{
                 size: "sm",
-                src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                //src: "https://avatars.githubusercontent.com/u/30373425?v=4",
                 isBordered: true,
                 color: "secondary",
               }}
             />
           </DropdownItem>
-          <DropdownItem key="dashboard">Dashboard</DropdownItem>
-          <DropdownItem key="settings">Settings</DropdownItem>
-          <DropdownItem
-            key="new_project"
-            //endContent={<PlusIcon className="text-large" />}
-          >
-            New Project
+          <DropdownItem key="dashboard" textValue="Dashboard">
+            Dashboard
+          </DropdownItem>
+          <DropdownItem key="employees" textValue="Employees">
+            Employees
+          </DropdownItem>
+          <DropdownItem key="settings" textValue="Settings">
+            Settings
           </DropdownItem>
         </DropdownSection>
 
         <DropdownSection aria-label="Preferences" showDivider>
-          <DropdownItem key="quick_search" shortcut="⌘K">
+          <DropdownItem key="quick_search" shortcut="⌘K" textValue="Quick search">
             Quick search
           </DropdownItem>
           <DropdownItem
             isReadOnly
             key="theme"
             className="cursor-default"
+            textValue="Theme"
             endContent={<ThemeSwitcher />}
           >
             Theme
@@ -99,8 +106,12 @@ export default function DropdownUser() {
         </DropdownSection>
 
         <DropdownSection aria-label="Help & Feedback">
-          <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-          <DropdownItem key="logout">Log Out</DropdownItem>
+          <DropdownItem key="help_and_feedback" textValue="Help & Feedback">
+            Help & Feedback
+          </DropdownItem>
+          <DropdownItem key="logout" textValue="Log Out">
+            Log Out
+          </DropdownItem>
         </DropdownSection>
       </DropdownMenu>
     </Dropdown>

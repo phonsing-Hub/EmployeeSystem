@@ -9,3 +9,7 @@
 .auth{
     min-height: calc(100vh - 92px);
 }
+
+.table{
+    max-height: 70vh;
+}

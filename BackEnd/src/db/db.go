@@ -22,16 +22,21 @@ func New(dbuser string, dbpass string, dbhost string, dbname string) (*Db, error
 	if err != nil {
 		return nil, err
 	}
-	db.AutoMigrate(
-		&models.AuthUser{},
-		&models.Token{},
+	err = db.AutoMigrate(
+		&models.Region{},
+		&models.Country{},
+		&models.Location{},
+		&models.Job{},
 		&models.Department{},
 		&models.Employee{},
-		&models.Salary{},
-		&models.Position{},
-		&models.JobHistory{},
-		&models.DepartmentManagerHistory{},
+		&models.Dependent{},
+		&models.AuthUser{},
+		&models.Token{},
 	)
+
+	if err != nil {
+		log.Fatalf("ไม่สามารถ migrate ตารางได้: %v", err)
+	}
 	return &Db{DB: db}, nil
 }
 

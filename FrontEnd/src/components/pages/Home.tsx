@@ -1,6 +1,8 @@
+import { useUser } from "../../UserProvider"
 function Home() {
+  const user = useUser()
   return (
-    <div>Home</div>
+    <div>Home{user?.email}</div>
   )
 }
 

@@ -2,13 +2,15 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Ripple from "./components/loading/Ripple";
+
 import Root from "./Root";
 import AuthLayout from "./AuthLayout";
 import Home from "./components/pages/Home";
+import Employees from "./components/pages/Employees";
 import SignIn from "./components/pages/SignIn";
 import Register from "./components/pages/Register";
 import Logout from "./components/pages/Logout";
+
 
 export default function App() {
 
@@ -16,10 +18,16 @@ export default function App() {
     {
       path: "/",
       element: <Root />,
-      children: [{
+      children: [
+        {
         path: "/",
         element: <Home />,
-      }]
+        },
+        {
+          path: "/employees",
+          element: <Employees />,
+          }
+      ]
     },
     {
       element: <AuthLayout />,
@@ -27,7 +35,6 @@ export default function App() {
         {
           path: "signin",
           element: <SignIn />,
-         // loader: redirectIfUser,
         },
         {
           path: "register",

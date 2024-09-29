@@ -33,10 +33,10 @@ export default function SignIn() {
     try {
       setLoading(true);
       const res = await axios.post(
-        `${DomainName}/login`,
+        `${DomainName}/auth/login`,
         {
           email,
-          password,
+          pass: password,
         },
         { withCredentials: true }
       );

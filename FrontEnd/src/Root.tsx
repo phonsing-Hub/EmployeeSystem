@@ -1,30 +1,27 @@
-import { useState, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import Ripple from "./components/loading/Ripple";
+import { Outlet } from "react-router-dom";
 import NavbarHeader from "./components/navbar/navbarHeader";
+import { UserProvider, useUser } from "./UserProvider";
+import Ripple from "./components/loading/Ripple";
 function Root() {
-  const [auth, setAuth] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if(!auth){
-      navigate("/signin");
-    }
-  }, []);
+  const user = useUser();
 
-  if (loading)
-    return (
-      <div className="w-screen h-screen flex justify-center items-center">
-         <Ripple/>
-        Loading ...
-      </div>
-    );
   return (
     <main>
-      <NavbarHeader />
-      <main className="container mx-auto max-w-screen-2xl px-6 br">
-        <Outlet />
-      </main>
+      <UserProvider>
+        {!user ? (
+          <>
+            <NavbarHeader />
+            <main className="mx-2 px-6">
+              <Outlet />
+            </main>
+          </>
+        ) : (
+          <div className="w-full h-screen flex justify-center items-center">
+            <Ripple />
+            <h1>Loading ...</h1>
+          </div>
+        )}
+      </UserProvider>
     </main>
   );
 }
